@@ -33,13 +33,17 @@ const createResponse = (success: boolean, message: string): ResponseAccess => ({
 });
 
 export const loginUser = async (
-  username: string,
-  password: string
+  email: string,
+  password: string,
+  twoFactorCode:string="",
+  twoFactorRecoveryCode:string="",
 ): Promise<ResponseAccess> => {
   try {
     const { data } = await clientInstance(false).post("/identity/login", {
-      username,
+      email,
       password,
+      twoFactorCode,
+      twoFactorRecoveryCode
     });
     saveCredentials(
       data?.email,
