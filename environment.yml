@@ -1,0 +1,4 @@
+name: indtvenv
+dependencies:
+  - nodejs=18.*
+  - yarn=1.22.19
