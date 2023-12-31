@@ -37,7 +37,7 @@ export const loginUser = async (
   password: string
 ): Promise<ResponseAccess> => {
   try {
-    const { data } = await clientInstance(false).post("/login_licit", {
+    const { data } = await clientInstance(false).post("/identity/login", {
       username,
       password,
     });
