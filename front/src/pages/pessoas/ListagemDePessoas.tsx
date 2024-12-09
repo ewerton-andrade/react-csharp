@@ -7,6 +7,8 @@ import { FerramentasDaListagem } from '../../shared/components/ferramentas-da-li
 import { LayoutBaseDePagina } from '../../shared/layouts';
 import { useDebounce } from '../../shared/hooks/UseDebounce';
 import { Environment } from '../../shared/environment';
+import { useDrawerContext } from '../../shared/contexts';
+import { MenuPrincipal } from '../../shared/components/menu';
 
 
 export const ListagemDePessoas: React.FC = () => {
@@ -17,6 +19,23 @@ export const ListagemDePessoas: React.FC = () => {
   const [rows, setRows] = useState<IListagemPessoa[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [totalCount, setTotalCount] = useState(0);
+
+  const { setDrawerOptions } = useDrawerContext();
+
+  useEffect(() => {
+    setDrawerOptions([
+      {
+        icon: 'home',
+        path: '/home',
+        label: 'Página inicial',
+      },
+      {
+        icon: 'people',
+        path: '/pessoas',
+        label: 'Pessoas',
+      },
+    ]);
+  }, []);
 
 
   const busca = useMemo(() => {
@@ -66,7 +85,8 @@ export const ListagemDePessoas: React.FC = () => {
 
 
   return (
-    <LayoutBaseDePagina
+    <MenuPrincipal>
+      <LayoutBaseDePagina
       titulo='Listagem de pessoas'
       barraDeFerramentas={
         <FerramentasDaListagem
@@ -131,5 +151,6 @@ export const ListagemDePessoas: React.FC = () => {
         </Table>
       </TableContainer>
     </LayoutBaseDePagina>
+    </MenuPrincipal>
   );
 };

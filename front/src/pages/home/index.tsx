@@ -5,6 +5,8 @@ import { CidadesService } from '../../shared/services/api/cidades/CidadesService
 import { PessoasService } from '../../shared/services/api/pessoas/PessoasService';
 import { FerramentasDaListagem } from '../../shared/components/ferramentas-da-listagem/FerramentasDaListagem';
 import { LayoutBaseDePagina } from '../../shared/layouts';
+import { useDrawerContext } from '../../shared/contexts';
+import { MenuPrincipal } from '../../shared/components/menu';
 
 
 export const Home = () => {
@@ -12,6 +14,23 @@ export const Home = () => {
   const [isLoadingPessoas, setIsLoadingPessoas] = useState(true);
   const [totalCountCidades, setTotalCountCidades] = useState(0);
   const [totalCountPessoas, setTotalCountPessoas] = useState(0);
+
+  const { setDrawerOptions } = useDrawerContext();
+
+  useEffect(() => {
+    setDrawerOptions([
+      {
+        icon: 'home',
+        path: '/home',
+        label: 'Página inicial',
+      },
+      {
+        icon: 'people',
+        path: '/pessoas',
+        label: 'Pessoas',
+      },
+    ]);
+  }, []);
 
   useEffect(() => {
     setIsLoadingCidades(true);
@@ -41,7 +60,8 @@ export const Home = () => {
 
 
   return (
-    <LayoutBaseDePagina
+    <MenuPrincipal>
+      <LayoutBaseDePagina
       titulo='Página inicial'
       barraDeFerramentas={<FerramentasDaListagem mostrarBotaoNovo={false} />}
     >
@@ -102,5 +122,7 @@ export const Home = () => {
         </Grid>
       </Box>
     </LayoutBaseDePagina>
+
+    </MenuPrincipal>
   );
 };

@@ -6,18 +6,12 @@ using back.Domain;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace back
+namespace back.Persistence
 {
-    public class AppDbContext: IdentityDbContext
+    public class DataContext : IdentityDbContext<User>
     {
-        public AppDbContext()
+        public DataContext(DbContextOptions options) : base(options)
         {
         }
-
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
-        {
-            
-        }
-        
     }
 }

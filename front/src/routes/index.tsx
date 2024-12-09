@@ -9,26 +9,9 @@ import { DetalheDePessoas } from "../pages/pessoas/DetalheDePessoas";
 import { MenuPrincipal } from "../shared/components/menu";
 
 function AppRoutes() {
-  const { setDrawerOptions } = useDrawerContext();
-
-  useEffect(() => {
-    setDrawerOptions([
-      {
-        icon: 'home',
-        path: '/home',
-        label: 'Página inicial',
-      },
-      {
-        icon: 'people',
-        path: '/pessoas',
-        label: 'Pessoas',
-      },
-    ]);
-  }, []);
 
   return (
     <BrowserRouter>
-    <MenuPrincipal>
     <Routes>
         <Route path="/home" element={<Home/>} />
         <Route path="/pessoas" element={<ListagemDePessoas />} />
@@ -36,9 +19,6 @@ function AppRoutes() {
         <Route path="/" element={<Login/>} />
         <Route path="*" element={<Login/>} />
       </Routes>
-
-    </MenuPrincipal>
-      
     </BrowserRouter>
   );
 }

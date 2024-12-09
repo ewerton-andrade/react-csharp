@@ -1,6 +1,9 @@
+using System.Reflection.Metadata.Ecma335;
 using back;
+using back.Domain;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -51,6 +54,62 @@ app.MapGet("/weatherforecast", () =>
 })
 .WithName("GetWeatherForecast")
 .WithOpenApi();
+
+//////////////////////////
+
+app.MapGet("/user", async () => {
+    AppDbContext db = new AppDbContext();
+    return db.Users;
+}); 
+
+// app.MapGet("/todoitems/username", async (AppDbContext db) =>
+//     await db.Users.Where(t => t.UserName == username).ToListAsync());
+
+// app.MapGet("/todoitems/{id}", async (int id, AppDbContext db) =>
+//     await db.Users.FindAsync(id)
+//         is User todo
+//             ? Results.Ok(todo)
+//             : Results.NotFound());
+
+// app.MapPost("/todoitems", async (User todo, AppDbContext db) =>
+// {
+//     db.Users.Add(todo);
+//     await db.SaveChangesAsync();
+
+//     return Results.Created($"/todoitems/{todo.Id}", todo);
+// });
+
+// app.MapPut("/todoitems/{id}", async (int id, User inputTodo, AppDbContext db) =>
+// {
+//     var todo = await db.Users.FindAsync(id);
+
+//     if (todo is null) return Results.NotFound();
+
+//     todo.Name = inputTodo.Name;
+//     todo.IsComplete = inputTodo.IsComplete;
+
+//     await db.SaveChangesAsync();
+
+//     return Results.NoContent();
+// });
+
+// app.MapDelete("/todoitems/{id}", async (int id, AppDbContext db) =>
+// {
+//     if (await db.Users.FindAsync(id) is User todo)
+//     {
+//         db.Users.Remove(todo);
+//         await db.SaveChangesAsync();
+//         return Results.NoContent();
+//     }
+
+//     return Results.NotFound();
+// });
+ 
+
+//////////////////////////
+
+
+
 
 app.MapGroup("/identity").MapIdentityApi<IdentityUser>();
 
